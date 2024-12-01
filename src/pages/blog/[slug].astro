@@ -1,0 +1,55 @@
+---
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypePrism from "rehype-prism-plus";
+import "prism-themes/themes/prism-dracula.css";
+
+import { loadMarkdowns } from "../../../load-md";
+import Page from "../../layouts/Page.astro";
+
+export async function getStaticPaths() {
+  const markdowns = await loadMarkdowns({
+    source: import.meta.env.MARKDOWN_SOURCE || "local",
+    localPath: import.meta.env.LOCAL_MARKDOWN_PATH,
+    githubRepoUrl: import.meta.env.GITHUB_REPO_URL || "",
+    githubToken: import.meta.env.GITHUB_TOKEN,
+  });
+
+  return markdowns.map((markdown) => {
+    return {
+      params: { slug: markdown.slug },
+      props: {
+        content: markdown.content,
+        frontmatter: markdown.frontmatter || {},
+      },
+    };
+  });
+}
+
+const { content, frontmatter } = Astro.props;
+
+async function processMarkdown(markdownContent: string) {
+  const processedContent = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypePrism)
+    .use(rehypeStringify)
+    .process(markdownContent);
+
+  return processedContent.toString();
+}
+
+const processedContent = await processMarkdown(content);
+---
+
+<Page title={frontmatter.title} description={frontmatter.description}>
+  {
+    frontmatter.date && (
+      <time>{new Date(frontmatter.date).toLocaleDateString()}</time>
+    )
+  }
+
+  <div set:html={processedContent} />
+</Page>
