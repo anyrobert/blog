@@ -17,6 +17,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     env:
       MARKDOWN_SOURCE: remote
       REPO_URL: "https://api.github.com/repos/anyrobert/obsidian/git/trees/main?recursive=1"
