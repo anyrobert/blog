@@ -9,7 +9,7 @@ import { loadMarkdowns } from "../../load-md";
 const markdowns = await loadMarkdowns({
   source: import.meta.env.MARKDOWN_SOURCE || "local",
   localPath: import.meta.env.LOCAL_MARKDOWN_PATH,
-  githubRepoUrl: import.meta.env.GITHUB_REPO_URL || "",
+  githubRepoUrl: import.meta.env.REPO_URL || "",
   githubToken: import.meta.env.GITHUB_TOKEN,
 });
 
@@ -21,23 +21,16 @@ const featuredMarkdowns = markdowns.slice(0, 3);
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body>
+  <body class="dark:bg-gray-900 dark:text-white">
     <Header />
-    <main>
+    <main class="container mx-auto">
       <section>
         {
           featuredMarkdowns.map((markdown) => (
-            <div class="post-card bg-white shadow-lg rounded-lg p-6">
-              <h2 class="text-2xl font-semibold">
-                {markdown.frontmatter?.title}
-              </h2>
+            <div>
+              <h2>{markdown.frontmatter?.title}</h2>
               <p>{markdown.frontmatter?.description}</p>
-              <a
-                href={`/blog/${markdown.slug}`}
-                class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded"
-              >
-                Ler mais
-              </a>
+              <a href={`/blog/${markdown.slug}`}>Ler mais</a>
             </div>
           ))
         }

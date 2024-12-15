@@ -8,7 +8,7 @@ import { loadMarkdowns } from "../../../load-md";
 const markdowns = await loadMarkdowns({
   source: import.meta.env.MARKDOWN_SOURCE || "local",
   localPath: import.meta.env.LOCAL_MARKDOWN_PATH,
-  githubRepoUrl: import.meta.env.GITHUB_REPO_URL || "",
+  githubRepoUrl: import.meta.env.REPO_URL || "",
   githubToken: import.meta.env.GITHUB_TOKEN,
 });
 ---
@@ -20,7 +20,7 @@ const markdowns = await loadMarkdowns({
   </head>
   <body>
     <Header />
-    <main>
+    <main class="container mx-auto">
       <section>
         <ul>
           {

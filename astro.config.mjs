@@ -4,9 +4,12 @@ import sitemap from "@astrojs/sitemap";
 
 import { loadMarkdowns } from "./load-md";
 
+import tailwind from "@astrojs/tailwind";
+
 export default defineConfig({
-  site: "https://anyrobert.com",
-  integrations: [mdx(), sitemap()],
+  site: "https://anyrobert.github.io",
+  base: "blog",
+  integrations: [mdx(), sitemap(), tailwind()],
   vite: {
     define: {
       MD_SOURCE: JSON.stringify(process.env.MD_SOURCE || "local"),
@@ -19,7 +22,7 @@ export default defineConfig({
             const markdownConfig = MarkdownSourceSchema.parse({
               source: import.meta.env.MARKDOWN_SOURCE,
               localPath: import.meta.env.LOCAL_MARKDOWN_PATH,
-              githubRepoUrl: import.meta.env.GITHUB_REPO_URL,
+              githubRepoUrl: import.meta.env.REPO_URL,
               githubToken: import.meta.env.GITHUB_TOKEN,
             });
 
