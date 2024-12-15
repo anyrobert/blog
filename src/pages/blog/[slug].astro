@@ -4,7 +4,6 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypePrism from "rehype-prism-plus";
-import "prism-themes/themes/prism-dracula.css";
 
 import { loadMarkdowns } from "../../../load-md";
 import Page from "../../layouts/Page.astro";
@@ -31,14 +30,14 @@ export async function getStaticPaths() {
 const { content, frontmatter } = Astro.props;
 
 async function processMarkdown(markdownContent: string) {
-  const processedContent = await unified()
+  const content = await unified()
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypePrism)
     .use(rehypeStringify)
     .process(markdownContent);
 
-  return processedContent.toString();
+  return content.toString();
 }
 
 const processedContent = await processMarkdown(content);
