@@ -30,7 +30,7 @@ const featuredMarkdowns = markdowns.slice(0, 3);
             <div>
               <h2>{markdown.frontmatter?.title}</h2>
               <p>{markdown.frontmatter?.description}</p>
-              <a href={`/blog/${markdown.slug}`}>Ler mais</a>
+              <a href={`/blog/content/${markdown.slug}`}>Ler mais</a>
             </div>
           ))
         }

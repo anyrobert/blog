@@ -16,7 +16,7 @@ export async function GET(context) {
     description: SITE_DESCRIPTION,
     site: context.site,
     items: markdowns.map((markdown) => ({
-      link: `/blog/${markdown.slug}/`,
+      link: `/blog/content/${markdown.slug}/`,
     })),
   });
 }

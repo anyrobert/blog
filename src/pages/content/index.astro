@@ -26,7 +26,7 @@ const markdowns = await loadMarkdowns({
           {
             markdowns.map((markdown) => (
               <li>
-                <a href={`/blog/${markdown.slug}/`}>
+                <a href={`/blog/content/${markdown.slug}/`}>
                   {markdown.frontmatter?.heroImage && (
                     <img
                       width={720}
